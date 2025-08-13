@@ -1,0 +1,81 @@
+@font-face {
+	font-family: "HelveticaLight";
+	src: url("/fonts/helvetica_light.otf") format("otf");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font: inherit;
+}
+
+body {
+	margin: 0;
+}
+
+:root {
+	--pad-xs: 0.25rem;
+	--pad-s: 0.5rem;
+	--pad-m: 1rem;
+	--pad-l: 2rem;
+	--pad-xl: 4rem;
+	--color-white: #ffffff;
+	--color-gray-lighter: #e0e0e0;
+	--color-gray-light: #bdbdbd;
+	--color-gray-middle: #828282;
+	--color-gray-dark: #4f4f4f;
+	--color-black-middle: #333333;
+	--color-black-dark: #000000;
+}
+
+html {
+	font-family: "HelveticaLight", Arial, sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 16px;
+	color: var(--color-black-middle);
+	background-color: var(--color-white);
+}
+
+.flex {
+	display: flex;
+	flex-direction: column;
+}
+
+.pad-xs {
+	padding: var(--pad-xs);
+}
+.pad-s {
+	padding: var(--pad-s);
+}
+.pad-m,
+.pad {
+	padding: var(--pad-m);
+}
+.pad-l {
+	padding: var(--pad-l);
+}
+.pad-xl {
+	padding: var(--pad-xl);
+}
+
+.gap-xs {
+	gap: var(--pad-xs);
+}
+.gap-s {
+	gap: var(--pad-s);
+}
+.gap-m,
+.gap {
+	gap: var(--pad-m);
+}
+.gap-l {
+	gap: var(--pad-l);
+}
+.gap-xl {
+	gap: var(--pad-xl);
+}
