@@ -7,26 +7,26 @@
 <template>
 	<nav class="pad-m">
 		<div class="logo">
-			<NuxtLink to="/"><img src="/assets/images/logo.svg" /></NuxtLink>
+			<NuxtLink to="/product"><img src="/assets/images/logo.svg" /></NuxtLink>
 		</div>
 		<ul>
 			<li class="search">
-				<NuxtLink to="/search"
+				<NuxtLink to="/product"
 					><img src="/assets/images/search.svg"
 				/></NuxtLink>
 			</li>
 			<li class="favorite">
-				<NuxtLink to="/favorite"
+				<NuxtLink to="/product"
 					><img src="/assets/images/Favorite.svg"
 				/></NuxtLink>
 			</li>
 			<li class="user">
-				<NuxtLink to="/user"
+				<NuxtLink to="/product"
 					><img src="/assets/images/User.svg"
 				/></NuxtLink>
 			</li>
 			<li class="basket">
-				<NuxtLink to="/basket"
+				<NuxtLink to="/product"
 					><img src="/assets/images/Basket.svg"
 				/></NuxtLink>
 			</li>
