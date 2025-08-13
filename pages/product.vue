@@ -2,9 +2,15 @@
 	import { display_price } from "#imports"
 
 	const thumbnailsImports = [
-		import("../assets/images/thumbnails/fed986a1ae0540870eff072b34e28c9050e15f88.png"),
-		import("../assets/images/thumbnails/8df10cbde9d255156782fb0e66cd29227b3ea563.png"),
-		import("../assets/images/thumbnails/ea664da6f506a1efcf0b516aa65078587150d0e1.png"),
+		import(
+			"../assets/images/thumbnails/fed986a1ae0540870eff072b34e28c9050e15f88.png"
+		),
+		import(
+			"../assets/images/thumbnails/8df10cbde9d255156782fb0e66cd29227b3ea563.png"
+		),
+		import(
+			"../assets/images/thumbnails/ea664da6f506a1efcf0b516aa65078587150d0e1.png"
+		),
 	]
 	const relatedImports = [
 		{
@@ -87,7 +93,8 @@
 
 	function prevImage() {
 		currentIndex.value =
-			(currentIndex.value - 1 + thumbnails.value.length) % thumbnails.value.length
+			(currentIndex.value - 1 + thumbnails.value.length) %
+			thumbnails.value.length
 	}
 
 	function nextImage() {
@@ -258,7 +265,7 @@
 									)
 								}}
 							</p>
-							<p>
+							<p class="mobile-related-price">
 								{{
 									display_price(
 										item.price.value,
@@ -658,6 +665,9 @@
 		}
 		.related-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+		.mobile-related-price {
+			color: var(--color-gray-middle);
 		}
 	}
 </style>
