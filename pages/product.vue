@@ -1,10 +1,58 @@
 <script setup>
 	import { display_price } from "#imports"
-	const thumbnails = [
-		"/images/fed986a1ae0540870eff072b34e28c9050e15f88.png",
-		"/images/8df10cbde9d255156782fb0e66cd29227b3ea563.png",
-		"/images/ea664da6f506a1efcf0b516aa65078587150d0e1.png",
+
+	const thumbnailsImports = [
+		import("../assets/images/thumbnails/fed986a1ae0540870eff072b34e28c9050e15f88.png"),
+		import("../assets/images/thumbnails/8df10cbde9d255156782fb0e66cd29227b3ea563.png"),
+		import("../assets/images/thumbnails/ea664da6f506a1efcf0b516aa65078587150d0e1.png"),
 	]
+	const relatedImports = [
+		{
+			img: import(
+				"../assets/images/related/87c99caae07fa43a97378becd30cec251c29f7f2.png"
+			),
+			name: "ПЛАТЬЕ С V-ОБРАЗНЫМ ВЫРЕЗОМ, БЕЛЫЙ",
+			price: {
+				value: 8000,
+				old_value: 14900,
+				currency: "RUB",
+			},
+		},
+		{
+			img: import(
+				"../assets/images/related/e05471ba89e5b6362046012a79f4ac0fe7b9dd6a.png"
+			),
+			name: "ЖАКЕТ ДВУБОРТНЫЙ, СЕРО-ГОЛУБОЙ",
+			price: {
+				value: 8900,
+				currency: "RUB",
+			},
+		},
+		{
+			img: import(
+				"../assets/images/related/bcf5fa302e2e9c17abccc82e0ca657284f9265c9.png"
+			),
+			name: "ПЛАТЬЕ МАКСИ С ЯРУСАМИ, БЕЛЫЙ",
+			price: {
+				value: 10500,
+				currency: "RUB",
+			},
+		},
+		{
+			img: import(
+				"../assets/images/related/1b9b53d8ad4733f1011310262b6f178172b85b1e.png"
+			),
+			name: "КОМБИНЕЗОН СО СТОЙКОЙ, ЧЁРНЫЙ",
+			price: {
+				value: 9500,
+				currency: "RUB",
+			},
+		},
+	]
+
+	const thumbnails = ref([])
+	const related = ref([])
+
 	const product = {
 		name: "Жакет удлинённый",
 		color: "белый",
@@ -23,49 +71,14 @@
 			{ name: "бежевый", value: "#F9F1DC" },
 		],
 	}
-	const related = [
-		{
-			img: "/images/87c99caae07fa43a97378becd30cec251c29f7f2.png",
-			name: "ПЛАТЬЕ С V-ОБРАЗНЫМ ВЫРЕЗОМ, БЕЛЫЙ",
-			price: {
-				value: 8000,
-				old_value: 14900,
-				currency: "RUB",
-			},
-		},
-		{
-			img: "/images/e05471ba89e5b6362046012a79f4ac0fe7b9dd6a.png",
-			name: "ЖАКЕТ ДВУБОРТНЫЙ, СЕРО-ГОЛУБОЙ",
-			price: {
-				value: 8900,
-				currency: "RUB",
-			},
-		},
-		{
-			img: "/images/bcf5fa302e2e9c17abccc82e0ca657284f9265c9.png",
-			name: "ПЛАТЬЕ МАКСИ С ЯРУСАМИ, БЕЛЫЙ",
-			price: {
-				value: 10500,
-				currency: "RUB",
-			},
-		},
-		{
-			img: "/images/1b9b53d8ad4733f1011310262b6f178172b85b1e.png",
-			name: "КОМБИНЕЗОН СО СТОЙКОЙ, ЧёРНЫЙ",
-			price: {
-				value: 9500,
-				currency: "RUB",
-			},
-		},
-	]
 
 	let currentIndex = ref(0)
 	let previewIndex = ref(null)
 
 	const displayedImage = computed(() =>
 		previewIndex.value !== null
-			? thumbnails[previewIndex.value]
-			: thumbnails[currentIndex.value]
+			? thumbnails.value[previewIndex.value]
+			: thumbnails.value[currentIndex.value]
 	)
 
 	function setImage(index) {
@@ -74,12 +87,28 @@
 
 	function prevImage() {
 		currentIndex.value =
-			(currentIndex.value - 1 + thumbnails.length) % thumbnails.length
+			(currentIndex.value - 1 + thumbnails.value.length) % thumbnails.value.length
 	}
 
 	function nextImage() {
-		currentIndex.value = (currentIndex.value + 1) % thumbnails.length
+		currentIndex.value = (currentIndex.value + 1) % thumbnails.value.length
 	}
+
+	onMounted(async () => {
+		const thumbsModules = await Promise.all(thumbnailsImports)
+		thumbnails.value = thumbsModules.map(m => m.default)
+
+		related.value = await Promise.all(
+			relatedImports.map(async item => {
+				const mod = await item.img
+				return {
+					img: mod.default,
+					name: item.name,
+					price: item.price,
+				}
+			})
+		)
+	})
 </script>
 
 <template>
@@ -105,7 +134,7 @@
 						}"
 						@click="prevImage"
 					>
-						<img src="assets/images/Arrow_left.svg" />
+						<img src="assets/images/icons/Arrow_left.svg" />
 					</button>
 					<div class="img-wrapper">
 						<transition name="fade">
@@ -134,7 +163,7 @@
 						}"
 						@click="nextImage"
 					>
-						<img src="assets/images/Arrow_right.svg" />
+						<img src="assets/images/icons/Arrow_right.svg" />
 					</button>
 				</div>
 			</div>
@@ -146,7 +175,7 @@
 							{{ product.name + ", " + product.color }}
 						</h1>
 						<button class="mobile-fav">
-							<img src="/assets/images/Favorite.svg" />
+							<img src="/assets/images/icons/Favorite.svg" />
 						</button>
 					</div>
 					<h2 class="price">
@@ -196,7 +225,7 @@
 				<div class="actions">
 					<button class="add-to-cart">ДОБАВИТЬ В КОРЗИНУ</button>
 					<button class="fav-btn">
-						<img src="/assets/images/Favorite.svg" />
+						<img src="/assets/images/icons/Favorite.svg" />
 					</button>
 				</div>
 
