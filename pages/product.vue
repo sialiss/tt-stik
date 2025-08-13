@@ -530,7 +530,7 @@
 		display: inline-block;
 		width: 12px;
 		height: 12px;
-		background: url("/assets/images/Plus.svg") no-repeat center / contain;
+		background: url("/assets/images/icons/Plus.svg") no-repeat center / contain;
 		color: var(--color-gray-middle);
 		transition: transform 0.5s ease;
 	}
